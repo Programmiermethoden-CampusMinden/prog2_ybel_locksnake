@@ -5,36 +5,48 @@ import java.util.List;
 import java.util.Objects;
 
 public final class GameState {
+  private final Level level;
+  private final Snake snake;
+  private final List<Pin> pins;
+  private final Status status;
+  private final Direction pendingDirection;
 
   public GameState(
       Level level, Snake snake, List<Pin> pins, Status status, Direction pendingDirection) {
-    // TODO: lege einen neuen GameState mit den übergebenen Informationen an
-    throw new UnsupportedOperationException("method not implemented yet");
+    this.level = level;
+    this.snake = snake;
+    this.pins = pins;
+    this.status = status;
+    this.pendingDirection = pendingDirection;
   }
 
   public Level level() {
-    // TODO: Getter
-    throw new UnsupportedOperationException("method not implemented yet");
+    return level;
   }
 
   public Snake snake() {
-    // TODO: Getter
-    throw new UnsupportedOperationException("method not implemented yet");
+    return snake;
   }
 
   public List<Pin> pins() {
-    // TODO: Getter
-    throw new UnsupportedOperationException("method not implemented yet");
+    return pins;
   }
 
   public Status status() {
-    // TODO: Getter
-    throw new UnsupportedOperationException("method not implemented yet");
+    return status;
   }
 
   public Direction pendingDirection() {
-    // TODO: Getter
-    throw new UnsupportedOperationException("method not implemented yet");
+    return pendingDirection;
+  }
+
+  public static GameState initial(Level level) {
+    var snake = new Snake(List.of(level.snakeStart()));
+    return new GameState(level, snake, level.pins(), Status.RUNNING, Direction.NONE);
+  }
+
+  public GameState withPendingDirection(Direction d) {
+    return new GameState(level, snake, pins, status, d);
   }
 
   public GameState tick() {
