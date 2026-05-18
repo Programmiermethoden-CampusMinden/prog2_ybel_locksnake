@@ -2,6 +2,7 @@ package de.hsbi.lockgame.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class Snake {
   private final List<Position> body;
@@ -35,5 +36,18 @@ public final class Snake {
     newBody.add(newHead);
     newBody.addAll(body);
     return new Snake(newBody);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    var that = (Snake) obj;
+    return Objects.equals(this.body, that.body);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(body);
   }
 }

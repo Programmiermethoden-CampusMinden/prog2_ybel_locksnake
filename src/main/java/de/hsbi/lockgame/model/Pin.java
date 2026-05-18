@@ -1,5 +1,7 @@
 package de.hsbi.lockgame.model;
 
+import java.util.Objects;
+
 public final class Pin {
   private final Position position;
   private final State state;
@@ -25,6 +27,21 @@ public final class Pin {
 
   public Direction activationDirection() {
     return activationDirection;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    var that = (Pin) obj;
+    return Objects.equals(this.position, that.position)
+        && Objects.equals(this.state, that.state)
+        && Objects.equals(this.activationDirection, that.activationDirection);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(position, state, activationDirection);
   }
 
   public enum State {

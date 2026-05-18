@@ -2,6 +2,7 @@ package de.hsbi.lockgame.logic;
 
 import de.hsbi.lockgame.model.*;
 import java.util.List;
+import java.util.Objects;
 
 public final class GameState {
 
@@ -55,6 +56,23 @@ public final class GameState {
 
     // TODO: anderenfalls: bewege die Schlange um einen Schritt in Blickrichtung (falls gesetzt)
     throw new UnsupportedOperationException("method not implemented yet");
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    var that = (GameState) obj;
+    return Objects.equals(this.level, that.level)
+        && Objects.equals(this.snake, that.snake)
+        && Objects.equals(this.pins, that.pins)
+        && Objects.equals(this.status, that.status)
+        && Objects.equals(this.pendingDirection, that.pendingDirection);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(level, snake, pins, status, pendingDirection);
   }
 
   public enum Status {

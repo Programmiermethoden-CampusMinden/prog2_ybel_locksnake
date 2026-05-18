@@ -1,6 +1,7 @@
 package de.hsbi.lockgame.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public final class Level {
   private final int width;
@@ -43,5 +44,22 @@ public final class Level {
 
   public Position snakeStart() {
     return snakeStart;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) return true;
+    if (obj == null || obj.getClass() != this.getClass()) return false;
+    var that = (Level) obj;
+    return this.width == that.width
+        && this.height == that.height
+        && Objects.equals(this.cells, that.cells)
+        && Objects.equals(this.pins, that.pins)
+        && Objects.equals(this.snakeStart, that.snakeStart);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(width, height, cells, pins, snakeStart);
   }
 }
